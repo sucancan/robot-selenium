@@ -5,19 +5,26 @@ Documentation     A resource file with reusable keywords and variables.
 ...               domain specific language. They utilize keywords provided
 ...               by the imported Selenium2Library.
 Library           Selenium2Library
+Library           Screenshot 
+
 
 *** Variables ***
 ${SERVER}         118.31.19.120:3000
 ${BROWSER}        Chrome
-${DELAY}          0
+${DELAY}          0.5
 ${VALID USER}     demo
 ${VALID PASSWORD}    mode
 ${LOGIN URL}      http://${SERVER}/
-${WELCOME URL}    http://${SERVER}/welcome.html
 ${Signup URL}      http://${SERVER}/signup
 ${INDEX PAGE}     http://${SERVER}/
 
 *** Keywords ***
+Login input
+    Input Username    testuser10
+    Input Password    123456
+    Submit Credentials
+    Welcome Page Should Be Open
+
 Open Browser To Login Page
     Open Browser    ${LOGIN URL}    ${BROWSER}
     Maximize Browser Window
@@ -30,7 +37,6 @@ Open Browser To Signup Page
     Maximize Browser Window
     Login Page Should Be Open
 
-
 #登录页面的title和注册的title一致
 Login Page Should Be Open
     Title Should Be    CNode：Node.js专业中文社区
@@ -39,14 +45,6 @@ Go To Login Page
     Go To    ${LOGIN URL}
     Login Page Should Be Open
 
-Input Username
-    [Arguments]    ${username}
-    Input Text    id:name    ${username}
-
-Input Password
-    [Arguments]    ${password}
-    Input Text    id:pass    ${password}
-
 Submit Credentials
     Click Element    css:.span-primary
 
@@ -54,6 +52,18 @@ Welcome Page Should Be Open
     Location Should Be    ${INDEX PAGE}
     Title Should Be    CNode：Node.js专业中文社区
 
+
+    
+
+
+
+Input Username
+    [Arguments]    ${username}
+    Input Text    id:name    ${username}
+
+Input Password
+    [Arguments]    ${password}
+    Input Text    id:pass    ${password}
 
 Input registername
     [Arguments]     ${registername}
@@ -72,3 +82,6 @@ Input e-mail
     Input Text    id:email    ${e-mail}
 
 
+Get screenshot
+    Screenshot.Set Screenshot Directory    ./take_screens
+    Screenshot.Take Screenshot

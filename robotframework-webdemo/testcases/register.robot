@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation        注册页面
-
-Test Teardown     Close Browser
-
-Resource          resource.robot
+Suite Teardown    Close Browser
+Test Setup        
+Test Teardown     Get screenshot
+Resource          resource.robot    Screenshot  
 
 
 *** Test Cases ***
